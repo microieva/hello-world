@@ -1,0 +1,13 @@
+button {
+    height: 2rem;
+    width: 6rem;
+    background: orange;
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:active {
+    outline:none;
+    background: yellow;
+}

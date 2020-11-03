@@ -1,0 +1,47 @@
+.country-card {
+    width: 15rem;
+    height: 25rem;
+    display:flex;
+    flex-direction: column;
+    margin: 1rem 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+.country-card:hover {
+    box-shadow: 2px 2px 20px 2px darkgray;
+    border-radius: 10px;
+    background: white;
+    border: none;   
+}
+
+.country-info {
+    margin: 0.5rem;
+}
+
+.name {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin: 2.5rem;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info:first-child{
+    font-weight: 900;
+}
+
+.flag {
+    height: 10rem;
+    display: flex;
+    align-items: center;
+}
+img {
+    width:15rem;
+    max-height: 100%;
+}
