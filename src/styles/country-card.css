@@ -12,12 +12,12 @@
 .country-card:hover {
     box-shadow: 2px 2px 20px 2px darkgray;
     border-radius: 10px;
-    background: white;
+    background: #f2f3f5;
     border: none;   
 }
 
 .country-info {
-    margin: 0.5rem;
+    margin: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .name {
@@ -30,6 +30,10 @@
 .info {
     display: flex;
     justify-content: space-between;
+}
+
+p {
+    font-size: smaller;
 }
 
 .info:first-child{

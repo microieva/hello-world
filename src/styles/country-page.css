@@ -1,13 +1,51 @@
+.country-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid black;
+    border-spacing: 0;
+    border-collapse: separate;
+    margin-bottom: 4rem;
+    width: 80%;
+    height: 8rem;
+}
+
+.banner-flag {
+    height: 100%;
+}
+
+.banner-flag img {
+    height: 100%;
+}
+
+.banner-name {
+    margin: 0;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
 button {
     height: 2rem;
     width: 6rem;
-    background: orange;
+    background: darkgray;
     border:none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 1rem;
 }
 
 button:active {
     outline:none;
-    background: yellow;
+    background: lightgray;
 }

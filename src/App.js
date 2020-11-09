@@ -23,7 +23,7 @@ const App = () => {
           setCountries(data)
     })
   }, [])
-  console.log(countries);
+
   return (   
       <Router>
           <div className='App'>
@@ -35,7 +35,7 @@ const App = () => {
               <Route exact path='/' 
                   component={() => <Home countries={countries}/>} 
               />
-            </Switch>
+          </Switch>
       </Router>
   )
 }

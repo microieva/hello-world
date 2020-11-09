@@ -1,4 +1,4 @@
-export const functions = [
+const functions = [
     function searchByName(){
         const {countries, searchWord} = this.state;
         const filteredCountries = countries.filter((country => 
@@ -21,3 +21,4 @@ export const functions = [
 
     }
 ]
+export default functions

@@ -7,13 +7,24 @@ const CountryPage = ({countries}) => {
     let country = countries.find(c => c.name === name)
 
     return (
-        <div>
-            {country.name}
-            <Link to='/'>
-                <button>
-                    Back
-                </button>
-            </Link>  
+        <div className='country-page-container'>
+            <div className='banner'>
+                <div className='banner-flag'>
+                    <img src={country.flag} alt={`Flag of ${country.name}`}/>
+                </div>
+                <div className='banner-name'>
+                    <h2>{country.name}</h2>
+                </div>
+            </div>
+            <div className='content'>
+                <p>blah blah blah</p>
+                <Link to='/'>
+                    <button>
+                        Back
+                    </button>
+                </Link>  
+            </div>
+            
         </div>
     )
 }

@@ -13,7 +13,7 @@ const CountryCard = ({country}) => {
     return (
         <Link to={`/country/${name}`} style={{textDecoration:'none', color: 'black'}}>
             <div className='country-card'>
-            <div className='flag'>
+                <div className='flag'>
                     <img src={flag} alt={`Flag of ${name}`}/>
                 </div>
                 <div className='country-info'>
@@ -30,7 +30,7 @@ const CountryCard = ({country}) => {
                     ?
                         <div className='info'>
                             <h5>Languages: </h5>
-                            <p style={{textAlign:'right'}}>{languages.map(lang => lang.name).join(", ")}</p>
+                            <p style={{textAlign:'right', marginLeft:'2rem'}}>{languages.map(lang => lang.name).join(", ")}</p>
                         </div>
                     :
                         <div className='info'>
