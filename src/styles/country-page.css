@@ -1,18 +1,22 @@
 .country-page-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    width: 80%;
+    background: #EFECEF;
+    margin: 0 10%;
 }
 
 .banner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid black;
     border-spacing: 0;
     border-collapse: separate;
     margin-bottom: 4rem;
-    width: 80%;
+    width: 100%;
     height: 8rem;
 }
 
@@ -31,21 +35,4 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-
-
-button {
-    height: 2rem;
-    width: 6rem;
-    background: darkgray;
-    border:none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 1rem;
-}
-
-button:active {
-    outline:none;
-    background: lightgray;
 }

@@ -1,26 +1,52 @@
 import { useState } from 'react'
 import '../styles/user-banner.css'
 
-const UserBanner = ({countries}) => {
+const UserBanner = ({ countries }) => {
     
-    function useInput({ type }) {
+    const useInput = ({ type }) => {
         const [value, setValue] = useState("");
-        const input = <input 
-            className='user-input'
-            placeholder="Search countries ..."
-            value={value} 
-            onChange={e => setValue(e.target.value)} 
-            type={type} 
-        />;
+        const input = 
+            <input 
+                className='user-input'
+                placeholder="Search countries ..."
+                value={value} 
+                onChange={e => setValue(e.target.value)} 
+                type={type} 
+            />;
         console.log('value from useInput ', value);
-        return [value, input];
-        
+        return [value, input];    
     }
 
     const [searchWord, userInput] = useInput({ type: "text" });
 
-    function search(){
-
+    const filterCountries = ({countries, searchWord}, id) => {
+        const filteredCountries = countries
+            .filter(country => {
+                const { name, capital, languages } = country
+                const isName = name
+                    .toLowerCase()
+                    .includes(searchWord.toLowerCase())
+                const isCapital = capital
+                    .toLowerCase()
+                    .includes(searchWord.toLowerCase())
+                const isLanguages = languages
+                    .join()
+                    .toLowerCase()
+                    .includes(searchWord.toLowerCase())
+            switch (id) {
+                case 'name':
+                    return isName;
+                case 'capital':
+                    return isCapital;
+                case 'language':
+                    return isLanguages;
+                default:
+                    return isName;
+            }
+        })
+        const result = searchWord === '' ? countries : filteredCountries;
+        console.log('filteredCountries: ', result);
+        return result;
     }
     
     return (
@@ -36,16 +62,16 @@ const UserBanner = ({countries}) => {
             }
             {userInput}
             <div className="buttons">
-                <button 
-                    onClick={search}>
+                <button id="name"
+                    onClick={(e)=>filterCountries({countries, searchWord}, e.target.id)}>
                         NAME
                 </button>
-                <button 
-                    onClick={search}>
+                <button id="capital"
+                    onClick={(e)=>filterCountries({countries, searchWord}, e.target.id)}>
                         CAPITAL
                 </button>
-                <button 
-                    onClick={search}>
+                <button id='langauge'
+                    onClick={(e)=>filterCountries({countries, searchWord}, e.target.id)}>
                         LANGUAGE
                 </button>
                 {/* <button 

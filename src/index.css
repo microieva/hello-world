@@ -12,6 +12,21 @@ code {
     monospace;
 }
 
+button {
+  height: 2rem;
+  width: 6rem;
+  background: darkgray;
+  border:none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 1rem;
+}
+
+button:focus {
+  outline:none;
+  background: lightgray;
+}
+
 p {
   margin: 2px;
   padding: 0;
