@@ -2,7 +2,7 @@ import CountryCard from './CountryCard'
 import UserBanner from './UserBanner'
 import '../styles/home.css'
 
-const Home = ({countries, useInput}) => {
+const Home = ({countries}) => {
     const countriesMapped = countries
         .map((country, i) => 
             <li style={{listStyle:'none'}} key={i}>
@@ -13,7 +13,7 @@ const Home = ({countries, useInput}) => {
     return (
         <div className='home-container'>
             <div className='banner-wrapper'>
-                <UserBanner countries = {countries} useInput={useInput}/>
+                <UserBanner countries = {countries}/>
             </div>
             <div className='list-wrapper'>
                 {countriesMapped} 

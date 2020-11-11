@@ -1,79 +1,94 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../styles/user-banner.css'
 
 const UserBanner = ({ countries }) => {
-    
+    const [searchWord, setSearchWord] = useState("")
+    const [filteredCountries, setFilteredCountries] = useState([])
+
+    useEffect(()=>{
+        setFilteredCountries((id)=>{
+            countries
+            .filter(country => {
+                const { name, capital } = country
+                const isName = name
+                    .toLowerCase()
+                    .startsWith(searchWord.toLowerCase())
+                const isCapital = capital
+                    .toLowerCase()
+                    .startsWith(searchWord.toLowerCase())   
+                    switch (id) {
+                        case 'name':
+                            return isName;
+                        case 'capital':
+                            return isCapital;
+                        //case 'language':
+                            //return isLanguages;
+                        default:
+                            return isName;
+                        } 
+                }
+            )
+        })
+    }, [searchWord, countries])
+
     const useInput = ({ type }) => {
-        const [value, setValue] = useState("");
+        //const [value, setValue] = useState("");
         const input = 
             <input 
                 className='user-input'
                 placeholder="Search countries ..."
-                value={value} 
-                onChange={e => setValue(e.target.value)} 
+                value={searchWord} 
+                onChange={e => setSearchWord(e.target.value)} 
                 type={type} 
             />;
-        console.log('value from useInput ', value);
-        return [value, input];    
+        console.log('value from useInput ', searchWord);
+        return [searchWord, input];    
     }
-
-    const [searchWord, userInput] = useInput({ type: "text" });
-
-    const filterCountries = ({countries, searchWord}, id) => {
-        const filteredCountries = countries
-            .filter(country => {
-                const { name, capital, languages } = country
-                const isName = name
-                    .toLowerCase()
-                    .includes(searchWord.toLowerCase())
-                const isCapital = capital
-                    .toLowerCase()
-                    .includes(searchWord.toLowerCase())
-                const isLanguages = languages
-                    .join()
-                    .toLowerCase()
-                    .includes(searchWord.toLowerCase())
-            switch (id) {
-                case 'name':
-                    return isName;
-                case 'capital':
-                    return isCapital;
-                case 'language':
-                    return isLanguages;
-                default:
-                    return isName;
-            }
-        })
-        const result = searchWord === '' ? countries : filteredCountries;
-        console.log('filteredCountries: ', result);
-        return result;
-    }
+    //const [search, userInput] = useInput({ type: "text" });
     
+    const useButton = ({ name }) => {
+        //const [filteredCountries, setFilteredCountries] = useState([])
+        const button =
+            <button
+                id={name}
+                onClick={e => setFilteredCountries({countries, searchWord}, e.target.id)}
+            >
+                {name.toUpperCase()}    
+            </button>
+        console.log('filteredCountries: ', filteredCountries);
+        return [filteredCountries, button]
+    }
+   
+    //setResult(searchWord === '' ? countries : filteredCountries)
+        
     return (
         <div className='banner-container'>
             <h1>Countries of The World</h1>
             {countries.length === 0 ? 
                     <h2>Loading ...</h2>
                 :
-                    countries.length > 1 ?
+                countries.length > 1 ?
                         <h2>Currently there are {countries.length} countries</h2>
                     :
                         <h2>There is 1 country</h2>
             }
-            {userInput}
+            {useInput({ type: "text" })}
             <div className="buttons">
-                <button id="name"
-                    onClick={(e)=>filterCountries({countries, searchWord}, e.target.id)}>
+                {useButton({name:'name'})}
+                {useButton({name:'capital'})}
+                {/* {useButton({name:'language'})} */}
+                {/* <button id="name"
+                    onClick={(e)=>useCountries({countries, searchWord}, e.target.id)}>
                         NAME
                 </button>
                 <button id="capital"
-                    onClick={(e)=>filterCountries({countries, searchWord}, e.target.id)}>
+                    onClick={(e)=>useCountries({countries, searchWord}, e.target.id)}>
                         CAPITAL
                 </button>
-                <button id='langauge'
-                    onClick={(e)=>filterCountries({countries, searchWord}, e.target.id)}>
+                <button id="langauge"
+                    onClick={(e)=>useCountries({countries, searchWord}, e.target.id)}>
                         LANGUAGE
-                </button>
+                </button> */}
                 {/* <button 
                     className='btn'
                     onClick={onRefresh}>
