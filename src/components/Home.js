@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import CountryCard from './CountryCard'
-//import UserBanner from './UserBanner'
 import '../styles/user-banner.css'
 import '../styles/home.css'
 
@@ -11,14 +10,12 @@ const Home = ({ countries }) => {
     useEffect(() => {
         setFilteredCountries(
             countries.filter((country) => 
-                country.name.toLowerCase().includes(searchWord.toLowerCase())
+                country.name.toLowerCase().startsWith(searchWord.toLowerCase())
             )
         )
         console.log('countries : ', countries); 
     },[searchWord, countries]);
-           
     
-
     const useInput = ({ type }) => {
         const input = 
             <input 
@@ -43,6 +40,7 @@ const Home = ({ countries }) => {
         //return [searchWord === '' ? countries : filteredCountries, button]
         return [button]
     }
+
     const countriesMapped = filteredCountries.length>0
         ?
         filteredCountries
@@ -81,8 +79,7 @@ const Home = ({ countries }) => {
             </div>
             <div className='list-wrapper'>
                 {countriesMapped}
-            </div>
-              
+            </div>     
         </div>
 
     )
