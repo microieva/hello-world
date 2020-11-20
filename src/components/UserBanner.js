@@ -1,38 +1,23 @@
 import { useState, useEffect } from 'react'
+//import Home from './Home'
 import '../styles/user-banner.css'
 
-const UserBanner = ({ countries }) => {
+//move to Home
+const UserBanner = ({countries}) => {
     const [searchWord, setSearchWord] = useState("")
     const [filteredCountries, setFilteredCountries] = useState([])
 
-    useEffect(()=>{
-        setFilteredCountries((id)=>{
-            countries
-            .filter(country => {
-                const { name, capital } = country
-                const isName = name
-                    .toLowerCase()
-                    .startsWith(searchWord.toLowerCase())
-                const isCapital = capital
-                    .toLowerCase()
-                    .startsWith(searchWord.toLowerCase())   
-                    switch (id) {
-                        case 'name':
-                            return isName;
-                        case 'capital':
-                            return isCapital;
-                        //case 'language':
-                            //return isLanguages;
-                        default:
-                            return isName;
-                        } 
-                }
+    useEffect(() => {
+        setFilteredCountries(
+            countries.filter((country) => 
+                country.name.toLowerCase().includes(searchWord.toLowerCase())        
             )
-        })
-    }, [searchWord, countries])
+            
+        );
+        console.log('UserBanner countries : ', countries);    
+    }, [searchWord, countries]);
 
     const useInput = ({ type }) => {
-        //const [value, setValue] = useState("");
         const input = 
             <input 
                 className='user-input'
@@ -41,13 +26,12 @@ const UserBanner = ({ countries }) => {
                 onChange={e => setSearchWord(e.target.value)} 
                 type={type} 
             />;
-        console.log('value from useInput ', searchWord);
-        return [searchWord, input];    
+        console.log('UserBanner filteredCountries: ', filteredCountries);
+        //return [searchWord === '' ? countries : filteredCountries, input]
+        return [input]
     }
-    //const [search, userInput] = useInput({ type: "text" });
     
-    const useButton = ({ name }) => {
-        //const [filteredCountries, setFilteredCountries] = useState([])
+    /*const useButton = ({ name }) => {
         const button =
             <button
                 id={name}
@@ -56,10 +40,8 @@ const UserBanner = ({ countries }) => {
                 {name.toUpperCase()}    
             </button>
         console.log('filteredCountries: ', filteredCountries);
-        return [filteredCountries, button]
-    }
-   
-    //setResult(searchWord === '' ? countries : filteredCountries)
+        return [searchWord === '' ? countries : filteredCountries, button]
+    }*/
         
     return (
         <div className='banner-container'>
@@ -74,8 +56,9 @@ const UserBanner = ({ countries }) => {
             }
             {useInput({ type: "text" })}
             <div className="buttons">
-                {useButton({name:'name'})}
-                {useButton({name:'capital'})}
+                {/* {useButton({name:'name'})}
+                {useButton({name:'capital'})} */}
+
                 {/* {useButton({name:'language'})} */}
                 {/* <button id="name"
                     onClick={(e)=>useCountries({countries, searchWord}, e.target.id)}>
