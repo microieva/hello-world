@@ -6,16 +6,27 @@ import '../styles/home.css'
 const Home = ({ countries }) => {
     const [searchWord, setSearchWord] = useState("")
     const [filteredCountries, setFilteredCountries] = useState([])
+    const [category, setCategory] = useState("name")
     
     useEffect(() => {
         setFilteredCountries(
-            countries.filter((country) => 
-                country.name.toLowerCase().startsWith(searchWord.toLowerCase())
-            )
+            countries.filter((country) => {
+                switch(category) {
+                    case 'capital':
+                        return country.capital.toLowerCase().startsWith(searchWord.toLowerCase())
+                    case 'language':
+                        return country.languages
+                            .map(lang => lang.name)
+                            .join(", ")
+                            .toLowerCase().startsWith(searchWord.toLowerCase());  
+                    default:
+                        return country.name.toLowerCase().startsWith(searchWord.toLowerCase())
+                }
+            })
         )
         console.log('countries : ', countries); 
-    },[searchWord, countries]);
-    
+    },[searchWord, countries, category]);
+
     const useInput = ({ type }) => {
         const input = 
             <input 
@@ -33,12 +44,15 @@ const Home = ({ countries }) => {
         const button =
             <button
                 id={name}
-                onClick={setFilteredCountries && console.log('BUTTON filteredCountries: ', filteredCountries)}
+                onClick={e=> handleButton(e.target.id)}
             >
                 {name.toUpperCase()}    
             </button>
-        //return [searchWord === '' ? countries : filteredCountries, button]
         return [button]
+    }
+
+    const handleButton = (id) => {
+        setCategory(id)
     }
 
     const countriesMapped = filteredCountries.length>0
@@ -73,7 +87,8 @@ const Home = ({ countries }) => {
                     {useInput({ type: "text" })}
                     <div className="buttons">
                         {useButton({name:'name'})}  
-                        {useButton({name:'capital'})}  
+                        {useButton({name:'capital'})} 
+                        {useButton({name:'language'})} 
                     </div>
                 </div>
             </div>
