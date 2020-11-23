@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import CountryCard from './CountryCard'
+import Stats from './Stats'
 import '../styles/user-banner.css'
 import '../styles/home.css'
 
@@ -7,20 +8,22 @@ const Home = ({ countries }) => {
     const [searchWord, setSearchWord] = useState("")
     const [filteredCountries, setFilteredCountries] = useState([])
     const [category, setCategory] = useState("name")
-    
+
     useEffect(() => {
         setFilteredCountries(
             countries.filter((country) => {
                 switch(category) {
                     case 'capital':
-                        return country.capital.toLowerCase().startsWith(searchWord.toLowerCase())
+                        return country.capital
+                            .toLowerCase().startsWith(searchWord.toLowerCase())
                     case 'language':
                         return country.languages
                             .map(lang => lang.name)
                             .join(", ")
                             .toLowerCase().startsWith(searchWord.toLowerCase());  
                     default:
-                        return country.name.toLowerCase().startsWith(searchWord.toLowerCase())
+                        return country.name
+                            .toLowerCase().startsWith(searchWord.toLowerCase())
                 }
             })
         )
@@ -44,14 +47,14 @@ const Home = ({ countries }) => {
         const button =
             <button
                 id={name}
-                onClick={e=> handleButton(e.target.id)}
+                onClick={e=> handleClick(e.target.id)}
             >
                 {name.toUpperCase()}    
             </button>
         return [button]
     }
 
-    const handleButton = (id) => {
+    const handleClick = (id) => {
         setCategory(id)
     }
 
@@ -70,6 +73,12 @@ const Home = ({ countries }) => {
                     <CountryCard country={country}/>
                 </li>
         )
+    
+    let worldPopulation = countries.length>0 ? 
+        countries.map((country) => country.population)
+        .reduce((acc, curr) => acc + curr)
+        : false
+        console.log('world population: ', worldPopulation);
        
     return (
         <div className='home-container'>
@@ -94,7 +103,16 @@ const Home = ({ countries }) => {
             </div>
             <div className='list-wrapper'>
                 {countriesMapped}
-            </div>     
+            </div>  
+            <div className='stats-container'>
+                {filteredCountries.length === countries.length ?
+                    <Stats 
+                        countries={countries} worldPopulation={worldPopulation}/>
+                :
+                    <Stats 
+                        countries={filteredCountries} worldPopulation={worldPopulation}/>
+                }
+            </div>   
         </div>
 
     )
