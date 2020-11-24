@@ -24,3 +24,9 @@
     max-width: 100%;
     border-bottom: 1px solid black;
 }
+
+.stats-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
