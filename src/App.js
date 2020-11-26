@@ -24,6 +24,19 @@ const App = () => {
       
   }, [])
 
+  const [coronaStats, setCoronaStats] = useState([])
+    
+    useEffect(() => {
+        const url = 'https://corona-api.com/countries'
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            setCoronaStats(data)
+            console.log('corona stats: ', data); 
+          })
+         
+    }, [])
+
   return (  
       <Router>
           <div className='App'>
@@ -33,7 +46,11 @@ const App = () => {
                   component={()=> <CountryPage countries={countries}/>}
               /> 
               <Route exact path='/' 
-                  component={() => <Home countries={countries}/>} 
+                  component={() => <Home 
+                                      countries={countries} 
+                                      coronaStats={coronaStats}
+                                    />
+                  } 
               />
           </Switch>
       </Router>

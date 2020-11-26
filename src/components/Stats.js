@@ -10,11 +10,22 @@ const Stats =({countries, worldPopulation}) => {
 
     const format = (population) => {
         return population
-            .toString().split( /(?=(?:\d{3})+(?:\.|$))/g ).join( " " )
+            .toString().split( /(?=(?:\d{3})+(?:\.|$))/g ).join(" ")
     }
 
     return (
-        <div className='stats-wrapper'>
+        <div className='stats-container'>
+            <div>
+                <h2>Population</h2>
+                {countries.length > 10 ? 
+                            <h3>Top 10</h3>
+                        :
+                        countries.length >=2 ?
+                                <h3>Countries Found</h3>
+                            :
+                                <h3> </h3>
+                }    
+            </div>
             <div className='world-column'>
                 <div className='column-titles'>
                     <p>WORLD</p> 
@@ -23,26 +34,24 @@ const Stats =({countries, worldPopulation}) => {
                     </p>
                 </div>
             </div>
-                {countries.sort((a, b) => b.population - a.population).slice(0, 10)
-                    .map((country, i) => 
-                        <div key={i} className='country-column'> 
-                            <div className='inner-column' style={{width:`${percentage(country.population)}%`}}> </div>  
-                            <div className='column-titles'>
-                                <p>{country.name}</p> 
-                                <p>{format(country.population)} 
-                                    {
-                                        percentage(country.population) < 0.01 ?
-                                        <spam>(less than 0.1% of the World's population)</spam>
-                                        :
-                                        <spam>({percentage(country.population)}% of the World's population)</spam>
-                                    }
-                                </p>
-                            </div>
-                            
+            {countries.sort((a, b) => b.population - a.population).slice(0, 10)
+                .map((country, i) => 
+                    <div key={i} className='country-column'> 
+                        <div className='inner-column' style={{width:`${percentage(country.population)}%`}}> </div>                              <div className='column-titles'>
+                            <p>{country.name}</p> 
+                            <p>{format(country.population)} 
+                                {
+                                    percentage(country.population) < 0.01 ?
+                                    <spam>(less than 0.1% of the World's population)</spam>
+                                    :
+                                    <spam>({percentage(country.population)}% of the World's population)</spam>
+                                }
+                            </p>
                         </div>
-                    )
-                }
-            </div>        
+                    </div>
+                )
+            }
+        </div>        
     )    
 }
 export default Stats

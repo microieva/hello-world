@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import CountryCard from './CountryCard'
 import Stats from './Stats'
+import CoronaStats from './CoronaStats'
 import '../styles/user-banner.css'
 import '../styles/home.css'
 
-const Home = ({ countries }) => {
+const Home = ({ countries, coronaStats }) => {
     const [searchWord, setSearchWord] = useState("")
     const [filteredCountries, setFilteredCountries] = useState([])
     const [category, setCategory] = useState("name")
@@ -104,7 +105,7 @@ const Home = ({ countries }) => {
             <div className='list-wrapper'>
                 {countriesMapped}
             </div>  
-            <div className='stats-container'>
+            <div className='stats-wrapper'>
                 {filteredCountries.length === countries.length ?
                     <Stats 
                         countries={countries} worldPopulation={worldPopulation}/>
@@ -112,7 +113,10 @@ const Home = ({ countries }) => {
                     <Stats 
                         countries={filteredCountries} worldPopulation={worldPopulation}/>
                 }
-            </div>   
+            </div> 
+            <div className='corona-stats-wrapper'>
+                <CoronaStats coronaStats={coronaStats}/>
+            </div>  
         </div>
 
     )

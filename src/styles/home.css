@@ -22,11 +22,11 @@
     flex-wrap: wrap;
     justify-content: center;
     max-width: 100%;
-    border-bottom: 1px solid black;
 }
 
-.stats-container {
+.stats-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
+    border-top: 1px solid black;
 }

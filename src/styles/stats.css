@@ -1,6 +1,7 @@
-.stats-wrapper {
+.stats-container {
     width: 85%;
     margin: 2rem;
+    text-align: center;
 }
 
 .world-column {
