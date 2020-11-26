@@ -78,7 +78,7 @@ const Home = ({ countries, coronaStats }) => {
     let worldPopulation = countries.length>0 ? 
         countries.map((country) => country.population)
         .reduce((acc, curr) => acc + curr)
-        : false
+        : ""
         console.log('world population: ', worldPopulation);
        
     return (
@@ -115,7 +115,14 @@ const Home = ({ countries, coronaStats }) => {
                 }
             </div> 
             <div className='corona-stats-wrapper'>
-                <CoronaStats coronaStats={coronaStats}/>
+                {filteredCountries.length === countries.length ?
+                    <CoronaStats 
+                        countries={countries} coronaStats={coronaStats}/>
+                :
+                    <CoronaStats 
+                        countries={filteredCountries} coronaStats={coronaStats}/>
+                }
+                
             </div>  
         </div>
 

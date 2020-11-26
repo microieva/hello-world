@@ -31,8 +31,7 @@ const App = () => {
         fetch(url)
           .then(response => response.json())
           .then(data => {
-            setCoronaStats(data)
-            console.log('corona stats: ', data); 
+            setCoronaStats(data.data)
           })
          
     }, [])
