@@ -62,7 +62,6 @@ const App = () => {
               <Route exact path='/country/:name' 
                   component={()=> <CountryPage 
                                     countries={countries}
-                                    loading={loading}
                                   />
                   }
               /> 
@@ -70,7 +69,6 @@ const App = () => {
                   component={() => <Home 
                                       countries={countries} 
                                       coronaStats={coronaStats}
-                                      loading={loading}
                                     />
                   } 
               />

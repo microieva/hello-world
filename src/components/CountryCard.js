@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom';
+import { format } from '../functions'
 import '../styles/country-card.css'
 
-const CountryCard = ({country}) => {
+const CountryCard = ({country, coronaStats}) => {
     const { 
         flag, 
         name, 
         capital, 
         population, 
-        languages 
+        languages,
     } = country
-    
+
     return (
         <Link 
             to={`/country/${name}`} 
@@ -27,7 +28,8 @@ const CountryCard = ({country}) => {
                     </div>
                     <div className='info'>
                         <h5>Population: </h5>
-                        <p>{population.toString().split( /(?=(?:\d{3})+(?:\.|$))/g ).join( " " )}</p>
+                        <p>{format(population)}</p> 
+                        
                     </div>
                     {languages.length > 1 
                     ?
@@ -36,7 +38,8 @@ const CountryCard = ({country}) => {
                             <p 
                                 style={{textAlign:'right', marginLeft:'2rem'}}
                             >
-                                {languages.map(lang => lang.name).join(", ")}
+                                {languages
+                                    .map(lang => lang.name).join(", ")}
                             </p>
                         </div>
                     :

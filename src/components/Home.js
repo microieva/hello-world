@@ -5,7 +5,7 @@ import CoronaStats from './CoronaStats'
 import '../styles/user-banner.css'
 import '../styles/home.css'
 
-const Home = ({ countries, coronaStats, loading }) => {
+const Home = ({ countries, coronaStats }) => {
     const [searchWord, setSearchWord] = useState("")
     const [filteredCountries, setFilteredCountries] = useState([])
     const [category, setCategory] = useState("name")
@@ -59,40 +59,41 @@ const Home = ({ countries, coronaStats, loading }) => {
         setCategory(id)
     }
 
+    //const cPopulation = coronaStats.find((country) => country.name === name).population
+
     const countriesMapped = filteredCountries.length>0
         ?
         filteredCountries
             .map((country, i) => 
                 <li style={{listStyle:'none'}} key={i}>
-                    <CountryCard country={country}/>
+                    <CountryCard 
+                        country={country} coronaStats={coronaStats}/>
                 </li>
         )
         :
         countries
             .map((country, i) => 
                 <li style={{listStyle:'none'}} key={i}>
-                    <CountryCard country={country}/>
+                    <CountryCard 
+                        country={country} coronaStats={coronaStats}/>
                 </li>
         )
     
-    let worldPopulation = countries.length>0 ? 
+    let worldPopulation = countries.length>0 && 
         countries.map((country) => country.population)
         .reduce((acc, curr) => acc + curr)
-        : ""
-        console.log('world population: ', worldPopulation);
+        
+
        
     return (
         <div className='home-container'>
             <div className='banner-wrapper'>
                 <div className='banner-container'>
                     <h1>Countries of The World</h1>
-                    {countriesMapped.length === 0 ? 
-                            <h2>Loading ...</h2>
+                    {countriesMapped.length > 1 ?
+                        <h2>Currently there are {countriesMapped.length} countries</h2>
                         :
-                        countriesMapped.length > 1 ?
-                                <h2>Currently there are {countriesMapped.length} countries</h2>
-                            :
-                                <h2>There is 1 country</h2>
+                        <h2>There is 1 country</h2>
                     } 
                     
                     {useInput({ type: "text" })}
