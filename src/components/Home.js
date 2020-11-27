@@ -5,7 +5,7 @@ import CoronaStats from './CoronaStats'
 import '../styles/user-banner.css'
 import '../styles/home.css'
 
-const Home = ({ countries, coronaStats }) => {
+const Home = ({ countries, coronaStats, loading }) => {
     const [searchWord, setSearchWord] = useState("")
     const [filteredCountries, setFilteredCountries] = useState([])
     const [category, setCategory] = useState("name")
@@ -93,7 +93,8 @@ const Home = ({ countries, coronaStats }) => {
                                 <h2>Currently there are {countriesMapped.length} countries</h2>
                             :
                                 <h2>There is 1 country</h2>
-                    }
+                    } 
+                    
                     {useInput({ type: "text" })}
                     <div className="buttons">
                         {useButton({name:'name'})}  

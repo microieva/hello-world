@@ -1,8 +1,6 @@
 import '../styles/corona-stats.css'
 
 const CoronaStats = ({ countries, coronaStats }) => {
-    console.log('stats, ', coronaStats);
-    console.log('stats data type: ', typeof coronaStats);
 
     const deathTotal = coronaStats.length>0 && coronaStats
         .map(country => country.latest_data.deaths)
