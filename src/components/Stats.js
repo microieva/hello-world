@@ -32,9 +32,9 @@ const Stats =({countries, worldPopulation}) => {
                             <p>{format(country.population)} 
                                 {
                                     percentage(country.population, worldPopulation) < 0.01 ?
-                                    <spam>(less than 0.1% of the World's population)</spam>
+                                    <em>(less than 0.1% of the World's population)</em>
                                     :
-                                    <spam>({percentage(country.population, worldPopulation)}% of the World's population)</spam>
+                                    <em>({percentage(country.population, worldPopulation)}% of the World's population)</em>
                                 }
                             </p>
                         </div>

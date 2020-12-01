@@ -2,15 +2,25 @@ import { Link } from 'react-router-dom';
 import { format } from '../functions'
 import '../styles/country-card.css'
 
-const CountryCard = ({country, coronaStats}) => {
+const CountryCard = ({country}) => {
     const { 
+        //alpha2Code,
         flag, 
         name, 
         capital, 
-        population, 
         languages,
+        population
     } = country
 
+    /*console.log('CountryCard  typeof coronaStats, ', typeof coronaStats);
+    let cPop = 
+        coronaStats.find((country) => country.code = alpha2Code).population
+    if (cPop === undefined) {
+        return "undefined"
+    }
+    console.log('CountryCard cPop, ', cPop);
+    console.log('CountryCard typeof cPop: ', typeof cPop);*/
+    //console.log('CountryCard ,', country);
     return (
         <Link 
             to={`/country/${name}`} 
@@ -30,6 +40,10 @@ const CountryCard = ({country, coronaStats}) => {
                         <h5>Population: </h5>
                         <p>{format(population)}</p> 
                         
+                        {/* {cPop !== undefined ? 
+                            <p>{cPop}</p>
+                        :
+                            <p>{format(population)}</p>} */}
                     </div>
                     {languages.length > 1 
                     ?

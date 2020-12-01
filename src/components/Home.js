@@ -16,19 +16,18 @@ const Home = ({ countries, coronaStats }) => {
                 switch(category) {
                     case 'capital':
                         return country.capital
-                            .toLowerCase().startsWith(searchWord.toLowerCase())
+                            .toLowerCase().includes(searchWord.toLowerCase())
                     case 'language':
                         return country.languages
                             .map(lang => lang.name)
                             .join(", ")
-                            .toLowerCase().startsWith(searchWord.toLowerCase());  
+                            .toLowerCase().includes(searchWord.toLowerCase());  
                     default:
                         return country.name
-                            .toLowerCase().startsWith(searchWord.toLowerCase())
+                            .toLowerCase().includes(searchWord.toLowerCase())
                 }
             })
         )
-        console.log('countries : ', countries); 
     },[searchWord, countries, category]);
 
     const useInput = ({ type }) => {
@@ -39,8 +38,7 @@ const Home = ({ countries, coronaStats }) => {
                 value={searchWord} 
                 onChange={e => setSearchWord(e.target.value)} 
                 type={type} 
-            />;
-        console.log('INPUT filteredCountries: ', filteredCountries);
+            />
         return [input]
     }
 
@@ -59,32 +57,56 @@ const Home = ({ countries, coronaStats }) => {
         setCategory(id)
     }
 
-    //const cPopulation = coronaStats.find((country) => country.name === name).population
+    function findUpdatedPopulations(otherArray){
+        return function(current){
+          return otherArray.filter(function(other){
+            return other.population === current.population && (other.alpha2Code === current.code||other.name === current.name)
+          }).length === 0;
+        }
+      }
+    function findMatchingPopulations(otherArray){
+        return function(current){
+          return otherArray.filter(function(other){
+            return other.population !== current.population && (other.alpha2Code === current.code||other.name === current.name)
+          }).length === 0;
+        }
+    }
+    
+    const matchingPopulations = coronaStats.filter(findMatchingPopulations(countries));
+    const updatedPopulations = coronaStats.filter(findUpdatedPopulations(countries));
+      
+    const result = matchingPopulations.concat(updatedPopulations);
+    console.log('matching populations: ', matchingPopulations); 
 
-    const countriesMapped = filteredCountries.length>0
+    console.log('updated populations: ', updatedPopulations);
+    console.log('RESULT: ',result);
+
+    const countriesMapped = filteredCountries.length>0 && coronaStats.length>0
         ?
         filteredCountries
-            .map((country, i) => 
-                <li style={{listStyle:'none'}} key={i}>
-                    <CountryCard 
-                        country={country} coronaStats={coronaStats}/>
-                </li>
-        )
+            .map((country, i) => {
+                return (
+                    <li style={{listStyle:'none'}} key={i}>
+                        <CountryCard 
+                            country={country} population={1}/>
+                    </li>
+                )
+            })
         :
         countries
-            .map((country, i) => 
-                <li style={{listStyle:'none'}} key={i}>
-                    <CountryCard 
-                        country={country} coronaStats={coronaStats}/>
-                </li>
-        )
+            .map((country, i) => {
+                return (
+                    <li style={{listStyle:'none'}} key={i}>
+                        <CountryCard 
+                            country={country} population={1}/>
+                    </li>
+                )
+            })
     
     let worldPopulation = countries.length>0 && 
         countries.map((country) => country.population)
         .reduce((acc, curr) => acc + curr)
-        
-
-       
+      
     return (
         <div className='home-container'>
             <div className='banner-wrapper'>
