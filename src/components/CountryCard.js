@@ -38,7 +38,7 @@ const CountryCard = ({country}) => {
                     </div>
                     <div className='info'>
                         <h5>Population: </h5>
-                        <p>{format(population)}</p> 
+                        {/* <p>{format(population)}</p>  */}
                         
                         {/* {cPop !== undefined ? 
                             <p>{cPop}</p>

@@ -9,7 +9,7 @@ const Home = ({ countries, coronaStats }) => {
     const [searchWord, setSearchWord] = useState("")
     const [filteredCountries, setFilteredCountries] = useState([])
     const [category, setCategory] = useState("name")
-
+//coronaStats missing Republic of Kosovo = 249 !!!
     useEffect(() => {
         setFilteredCountries(
             countries.filter((country) => {
@@ -57,29 +57,27 @@ const Home = ({ countries, coronaStats }) => {
         setCategory(id)
     }
 
-    function findUpdatedPopulations(otherArray){
-        return function(current){
-          return otherArray.filter(function(other){
-            return other.population === current.population && (other.alpha2Code === current.code||other.name === current.name)
-          }).length === 0;
-        }
-      }
-    function findMatchingPopulations(otherArray){
-        return function(current){
-          return otherArray.filter(function(other){
-            return other.population !== current.population && (other.alpha2Code === current.code||other.name === current.name)
-          }).length === 0;
-        }
-    }
-    
-    const matchingPopulations = coronaStats.filter(findMatchingPopulations(countries));
-    const updatedPopulations = coronaStats.filter(findUpdatedPopulations(countries));
-      
-    const result = matchingPopulations.concat(updatedPopulations);
-    console.log('matching populations: ', matchingPopulations); 
 
-    console.log('updated populations: ', updatedPopulations);
+
+    const result = []
+    for (const country of countries) {
+        const countryInCoronaApi = coronaStats.find(c=> c.code === country.alpha2Code) 
+        if (!countryInCoronaApi) {
+            result.push(country)
+        } else {
+            //country.population = countryInCoronaApi.population 
+            Object.assign(country, countryInCoronaApi)
+            result.push(country)
+        }   
+    }
     console.log('RESULT: ',result);
+
+
+
+
+
+
+
 
     const countriesMapped = filteredCountries.length>0 && coronaStats.length>0
         ?
