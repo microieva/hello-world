@@ -25,7 +25,6 @@ import {
     
     useEffect(() => {
         const fetchData = async () => {
-            console.log('inside fetchData');
             const countriesApi = await axios(
                 `https://restcountries.eu/rest/v2/all`
               );
@@ -58,7 +57,7 @@ import {
         
     }, []);
 
-      if (loading) {
+      if (loading || countries.data.length === 1) {
         return  <h1 style={{
                     textAlign:'center',
                     background: '#EFECEF',

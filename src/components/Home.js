@@ -84,8 +84,6 @@ const Home = ({ countries }) => {
         .map((country) => country.population)
         .reduce((acc, curr) => acc + curr)
     
-    console.log('Home js. countries: ', countries);  
-    console.log('Home js. filteredCountries: ', filteredCountries); 
     return (
         <div className='home-container'>
             <div className='banner-wrapper'>
