@@ -2,4 +2,24 @@
     width: 85%;
     margin: 2rem;
     text-align: center;
+    padding: 1rem;
+}
+
+.info-div {
+    display: flex;
+    flex-direction: column;
+}
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info p {
+    font-weight: normal;
+}
+
+#updated {
+    border-top: 1px solid black;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
 }

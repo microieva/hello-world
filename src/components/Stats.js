@@ -1,8 +1,8 @@
 import { format, percentage } from '../functions'
 import '../styles/stats.css'
 
-const Stats =({countries, worldPopulation}) => {
-    console.log('Stats.js ----------------------------------------------------------------------------------------------------------------------------------------------------------------');
+const Stats =({ countries, worldPopulation }) => {
+
     return (
         <div className='stats-container'>
             <div>

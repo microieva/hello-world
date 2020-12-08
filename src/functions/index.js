@@ -33,3 +33,13 @@ export const formatUpdated = (updated_at) => {
         }
     }
 }
+
+/*export const sortBy = (arr, string) => {
+    switch(string) {
+        case 'population':
+            return arr.sort((a,b)=> a.population - b.population)
+        default:
+            return arr.sort((a,b)=> a.name - a.name)
+
+    }
+}*/

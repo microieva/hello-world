@@ -6,7 +6,7 @@ import '../styles/user-banner.css'
 import '../styles/home.css'
 
 const Home = ({ countries }) => {
-    console.log('Home.js --------------------------------------------------------------------------------------------------------------------------');
+    //console.log('Home.js --------------------------------------------------------------------------------------------------------------------------');
     const [searchWord, setSearchWord] = useState("")
     const [filteredCountries, setFilteredCountries] = useState([])
     const [category, setCategory] = useState("name")
