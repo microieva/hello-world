@@ -2,7 +2,8 @@ import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import '../styles/country-page.css'
 
-const CountryPage = ({countries}) => {
+const CountryPage = ({ loading, countries }) => {
+    console.log('CountryPage.js ---------------------------------------------------------------------------------------------------------------------------------------------------------------');
     const { name } = useParams()
     let country = countries.find(c => c.name === name)
 

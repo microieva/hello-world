@@ -1,80 +1,92 @@
 import { 
-  useState, 
-  useEffect 
-} from 'react';
-import { 
-  BrowserRouter as Router, 
-  Switch, 
-  Route 
-} from 'react-router-dom';
-import axios from "axios";
-import Home from './components/Home';
-import CountryPage from './components/CountryPage'
-import './App.css'
-
-const App = () => {
-  const [loading, setLoading] = useState(false)
-  const [countries, setCountries] = useState([])
-   
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get("https://restcountries.eu/rest/v2/all")
-      .then((res) => {
-        setCountries(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const [coronaStats, setCoronaStats] = useState([])
-    
+    useState, 
+    useEffect 
+  } from 'react';
+  import { 
+    BrowserRouter as Router, 
+    Switch, 
+    Route 
+  } from 'react-router-dom';
+  import axios from "axios";
+  import Home from './components/Home';
+  import CountryPage from './components/CountryPage'
+  import './App.css'
+  
+  const App = () => {
+    const [loading, setLoading] = useState(true)
+    const [countries, setCountries] = useState({countriesApiData: [], coronaApiData: [], data: []})
+    console.log('App.js ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------');  
     useEffect(() => {
-        const url = 'https://corona-api.com/countries'
-        fetch(url)
-          .then(response => response.json())
-          .then(data => {
-            setCoronaStats(data.data)
-          })
-         
-    }, [])
-  
-    if (loading) {
-      return  <h1 style={{
-                  textAlign:'center',
-                  background: '#EFECEF',
-                  width: '85%',
-                  margin: '0 8%',
-                  padding: '2rem 0 50rem 0'
-              }}>
-                Loading countries ..
-              </h1>
-    }
-  
+        console.log('top inside useEffect');
+        //setLoading(true)
+        const fetchData = async () => {
+            console.log('inside fetchData');
+            const countriesApi = await axios(
+                `https://restcountries.eu/rest/v2/all`
+              );
+            const coronaApi = await axios(
+                `https://corona-api.com/countries`
+              );
+            
+            // combined here ------ setCountries ONCE ALL IN
+            const combined = []
+            for (const country in countriesApi.data) {
+                const countryInCoronaApi = coronaApi.data.data
+                    .find(c=> c.code === country.alpha2Code) 
+                if (!countryInCoronaApi) {
+                    combined.push(country)
+                } else {
+                    Object.assign(country, countryInCoronaApi)
+                    combined.push(country)
+                }   
+            }
+            setCountries({ countriesApiData: countriesApi.data, coronaApiData: coronaApi.data.data, data: combined});
+            setLoading(false)
+            //console.log('countriesApiData: ', countriesApi.data);
+            //console.log('coronaApiData: ', coronaApi.data.data);
+        };
+        
+        fetchData();
+        
+    }, []);
 
-  return (  
-      <Router>
-          <div className='App'>
-          </div>
-          <Switch>
-              <Route exact path='/country/:name' 
-                  component={()=> <CountryPage 
-                                    countries={countries}
-                                  />
-                  }
-              /> 
-              <Route exact path='/' 
-                  component={() => <Home 
-                                      countries={countries} 
-                                      coronaStats={coronaStats}
+    console.log('1 App.js countries: ', countries);
+      if (loading) {
+        return  <h1 style={{
+                    textAlign:'center',
+                    background: '#EFECEF',
+                    width: '85%',
+                    margin: '0 8%',
+                    padding: '2rem 0 50rem 0'
+                }}>
+                  Loading countries ..
+                </h1>
+      }
+      
+      console.log('2 App.js countries: ', countries);
+      
+      return (  
+        <Router>
+            <div className='App'>
+            </div>
+            <Switch>
+                <Route exact path='/country/:name' 
+                    component={()=> <CountryPage 
+                                      loading={loading}
+                                      countries={countries.data}
                                     />
-                  } 
-              />
-          </Switch>
-      </Router>
-  )
-}
-
-export default App;
+                    }
+                /> 
+                <Route exact path='/' 
+                    component={() => <Home 
+                                        loading={loading}
+                                        countries={countries.data} 
+                                      />
+                    } 
+                />
+            </Switch>
+        </Router>
+    )
+  }
+  
+  export default App;

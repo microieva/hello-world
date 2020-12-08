@@ -3,8 +3,8 @@ import { format } from '../functions'
 import '../styles/country-card.css'
 
 const CountryCard = ({country}) => {
+    console.log('CountryCard.js ------------------------------------------------------------------------------------------------------------------');
     const { 
-        //alpha2Code,
         flag, 
         name, 
         capital, 
@@ -12,15 +12,6 @@ const CountryCard = ({country}) => {
         population
     } = country
 
-    /*console.log('CountryCard  typeof coronaStats, ', typeof coronaStats);
-    let cPop = 
-        coronaStats.find((country) => country.code = alpha2Code).population
-    if (cPop === undefined) {
-        return "undefined"
-    }
-    console.log('CountryCard cPop, ', cPop);
-    console.log('CountryCard typeof cPop: ', typeof cPop);*/
-    //console.log('CountryCard ,', country);
     return (
         <Link 
             to={`/country/${name}`} 
@@ -38,12 +29,7 @@ const CountryCard = ({country}) => {
                     </div>
                     <div className='info'>
                         <h5>Population: </h5>
-                        {/* <p>{format(population)}</p>  */}
-                        
-                        {/* {cPop !== undefined ? 
-                            <p>{cPop}</p>
-                        :
-                            <p>{format(population)}</p>} */}
+                        <p>{population ? format(population): 0}</p>
                     </div>
                     {languages.length > 1 
                     ?

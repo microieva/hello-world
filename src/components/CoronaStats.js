@@ -1,12 +1,15 @@
 import '../styles/corona-stats.css'
 
-const CoronaStats = ({ countries, coronaStats }) => {
+const CoronaStats = ({ loading, countries }) => {
+    console.log('CoronaStats.js --------------------------------------------------------------------------------------------------------------------------------------------------');
+    console.log('CoronaStats countries: ', countries);
 
-    const deathTotal = coronaStats.length>0 && coronaStats
+    const deathTotal = countries
         .map(country => country.latest_data.deaths)
         .reduce((acc, curr) => acc + curr)
+    
 
-    const deathToday = coronaStats.length>0 && coronaStats
+    const deathToday = countries.length>0 && countries
         .map(country => country.today.deaths)
         .reduce((acc, curr) => acc + curr)
     
@@ -42,7 +45,7 @@ const CoronaStats = ({ countries, coronaStats }) => {
                 <div>
                     <p>Total number of deaths: {deathTotal}</p>
                     <p>Deaths today: {deathToday}</p>
-                    <p>Data updated: {formatUpdated(coronaStats[0].updated_at)}</p>
+                    <p>Data updated: {formatUpdated(countries[0].updated_at)}</p>
                 </div>
             :
                 <div>

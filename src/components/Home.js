@@ -5,11 +5,12 @@ import CoronaStats from './CoronaStats'
 import '../styles/user-banner.css'
 import '../styles/home.css'
 
-const Home = ({ countries, coronaStats }) => {
+const Home = ({ countries, loading }) => {
+    console.log('Home.js --------------------------------------------------------------------------------------------------------------------------');
     const [searchWord, setSearchWord] = useState("")
     const [filteredCountries, setFilteredCountries] = useState([])
     const [category, setCategory] = useState("name")
-//coronaStats missing Republic of Kosovo = 249 !!!
+
     useEffect(() => {
         setFilteredCountries(
             countries.filter((country) => {
@@ -57,36 +58,14 @@ const Home = ({ countries, coronaStats }) => {
         setCategory(id)
     }
 
-
-
-    const result = []
-    for (const country of countries) {
-        const countryInCoronaApi = coronaStats.find(c=> c.code === country.alpha2Code) 
-        if (!countryInCoronaApi) {
-            result.push(country)
-        } else {
-            //country.population = countryInCoronaApi.population 
-            Object.assign(country, countryInCoronaApi)
-            result.push(country)
-        }   
-    }
-    console.log('RESULT: ',result);
-
-
-
-
-
-
-
-
-    const countriesMapped = filteredCountries.length>0 && coronaStats.length>0
+    const countriesMapped = filteredCountries.length !== countries.length    
         ?
         filteredCountries
             .map((country, i) => {
                 return (
                     <li style={{listStyle:'none'}} key={i}>
                         <CountryCard 
-                            country={country} population={1}/>
+                            country={country}/>
                     </li>
                 )
             })
@@ -96,15 +75,17 @@ const Home = ({ countries, coronaStats }) => {
                 return (
                     <li style={{listStyle:'none'}} key={i}>
                         <CountryCard 
-                            country={country} population={1}/>
+                            country={country}/>
                     </li>
                 )
             })
     
-    let worldPopulation = countries.length>0 && 
-        countries.map((country) => country.population)
+    let worldPopulation = countries.length>0 && countries
+        .map((country) => country.population)
         .reduce((acc, curr) => acc + curr)
-      
+    
+    console.log('Home js. countries: ', countries);  
+    console.log('Home js. filteredCountries: ', filteredCountries); 
     return (
         <div className='home-container'>
             <div className='banner-wrapper'>
@@ -137,14 +118,17 @@ const Home = ({ countries, coronaStats }) => {
                 }
             </div> 
             <div className='corona-stats-wrapper'>
-                {filteredCountries.length === countries.length ?
-                    <CoronaStats 
-                        countries={countries} coronaStats={coronaStats}/>
-                :
-                    <CoronaStats 
-                        countries={filteredCountries} coronaStats={coronaStats}/>
-                }
+                {
+                    filteredCountries.length === countries.length || filteredCountries.length === 0?
+                        <CoronaStats 
+                                
+                            countries={countries}/>
+                    :
+                        <CoronaStats 
+                                
+                            countries={filteredCountries}/>
                 
+                }    
             </div>  
         </div>
 
