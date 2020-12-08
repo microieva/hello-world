@@ -3,7 +3,6 @@ import { format } from '../functions'
 import '../styles/country-card.css'
 
 const CountryCard = ({country}) => {
-    console.log('CountryCard.js ------------------------------------------------------------------------------------------------------------------');
     const { 
         flag, 
         name, 

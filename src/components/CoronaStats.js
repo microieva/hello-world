@@ -1,16 +1,24 @@
 import '../styles/corona-stats.css'
 
-const CoronaStats = ({ loading, countries }) => {
+const CoronaStats = ({ countries }) => {
     console.log('CoronaStats.js --------------------------------------------------------------------------------------------------------------------------------------------------');
     console.log('CoronaStats countries: ', countries);
 
     const deathTotal = countries
-        .map(country => country.latest_data.deaths)
+        .map(country => {
+            if (country.latest_data) {
+                return country.latest_data.deaths
+            }
+        })
         .reduce((acc, curr) => acc + curr)
     
 
-    const deathToday = countries.length>0 && countries
-        .map(country => country.today.deaths)
+    const deathToday = countries
+        .map(country =>{
+            if (country.today) {
+                return country.today.deaths
+            }
+        })
         .reduce((acc, curr) => acc + curr)
     
     const formatUpdated = (updated_at) => {

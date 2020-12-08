@@ -14,11 +14,16 @@ import {
   
   const App = () => {
     const [loading, setLoading] = useState(true)
-    const [countries, setCountries] = useState({countriesApiData: [], coronaApiData: [], data: []})
+    const [countries, setCountries] = useState(
+        {
+            countriesApiData: [], 
+            coronaApiData: [], 
+            data: []
+        }
+    )
     console.log('App.js ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------');  
+    
     useEffect(() => {
-        console.log('top inside useEffect');
-        //setLoading(true)
         const fetchData = async () => {
             console.log('inside fetchData');
             const countriesApi = await axios(
@@ -27,10 +32,8 @@ import {
             const coronaApi = await axios(
                 `https://corona-api.com/countries`
               );
-            
-            // combined here ------ setCountries ONCE ALL IN
             const combined = []
-            for (const country in countriesApi.data) {
+            for (const country of countriesApi.data) {
                 const countryInCoronaApi = coronaApi.data.data
                     .find(c=> c.code === country.alpha2Code) 
                 if (!countryInCoronaApi) {
@@ -40,17 +43,21 @@ import {
                     combined.push(country)
                 }   
             }
-            setCountries({ countriesApiData: countriesApi.data, coronaApiData: coronaApi.data.data, data: combined});
+            setCountries(
+                { 
+                    countriesApiData: countriesApi.data, 
+                    coronaApiData: coronaApi.data.data, 
+                    data: combined
+                }
+            );
             setLoading(false)
-            //console.log('countriesApiData: ', countriesApi.data);
-            //console.log('coronaApiData: ', coronaApi.data.data);
+            
         };
         
         fetchData();
         
     }, []);
 
-    console.log('1 App.js countries: ', countries);
       if (loading) {
         return  <h1 style={{
                     textAlign:'center',
@@ -63,8 +70,6 @@ import {
                 </h1>
       }
       
-      console.log('2 App.js countries: ', countries);
-      
       return (  
         <Router>
             <div className='App'>
@@ -72,14 +77,12 @@ import {
             <Switch>
                 <Route exact path='/country/:name' 
                     component={()=> <CountryPage 
-                                      loading={loading}
                                       countries={countries.data}
                                     />
                     }
                 /> 
                 <Route exact path='/' 
                     component={() => <Home 
-                                        loading={loading}
                                         countries={countries.data} 
                                       />
                     } 
