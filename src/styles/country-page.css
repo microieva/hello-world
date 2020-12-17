@@ -40,4 +40,22 @@
 
 .map-container {    
     min-width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.country-info {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-right: 0.5rem;
+}
+.info {
+    display: flex;
+    justify-content: space-between;
+    font-size: larger;
+}
+
+.info p {
+    font-weight: normal;
 }
