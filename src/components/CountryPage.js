@@ -1,9 +1,9 @@
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
+import MapContainer from './MapContainer'
 import '../styles/country-page.css'
 
-const CountryPage = ({ loading, countries }) => {
-    console.log('CountryPage.js ---------------------------------------------------------------------------------------------------------------------------------------------------------------');
+const CountryPage = ({ countries }) => {
     const { name } = useParams()
     let country = countries.find(c => c.name === name)
 
@@ -19,6 +19,9 @@ const CountryPage = ({ loading, countries }) => {
             </div>
             <div className='content'>
                 <p>blah blah blah</p>
+                <div className='map-container'>Map: 
+                    <MapContainer />
+                </div>
                 <Link to='/'>
                     <button>
                         Back
