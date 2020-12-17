@@ -32,7 +32,7 @@ const CoronaStats = ({ countries }) => {
 
     return (
         <div className='corona-stats-container'>
-            <h2>Corona Statistics</h2>
+            <h2>COVID-19 Statistics</h2>
             {countries && countries.length === 250 ? 
                 <div>
                     <h3>Wordlwide</h3>
