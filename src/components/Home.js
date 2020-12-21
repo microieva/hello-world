@@ -6,7 +6,7 @@ import '../styles/user-banner.css'
 import '../styles/home.css'
 
 const Home = ({ countries }) => {
-    //console.log('Home.js --------------------------------------------------------------------------------------------------------------------------');
+    
     const [searchWord, setSearchWord] = useState("")
     const [filteredCountries, setFilteredCountries] = useState([])
     const [category, setCategory] = useState("name")
@@ -116,15 +116,12 @@ const Home = ({ countries }) => {
                 }
             </div> 
             <div className='corona-stats-wrapper'>
-                {
-                    filteredCountries.length === countries.length || filteredCountries.length === 0?
-                        <CoronaStats 
-                                
-                            countries={countries}/>
-                    :
-                        <CoronaStats 
-                                
-                            countries={filteredCountries}/>
+                {filteredCountries.length === countries.length || filteredCountries.length === 0?
+                    <CoronaStats        
+                        countries={countries}/>
+                :
+                    <CoronaStats        
+                        countries={filteredCountries}/>
                 
                 }    
             </div>  

@@ -3,8 +3,6 @@ import { format, formatUpdated } from '../functions'
 import '../styles/corona-stats.css'
 
 const CoronaStats = ({ countries }) => {
-    //console.log('CoronaStats.js --------------------------------------------------------------------------------------------------------------------------------------------------');
-    console.log('CoronaStats countries: ', countries);
     const deathTotal = countries
         .map(country => 
             country.latest_data ? country.latest_data.deaths : 0

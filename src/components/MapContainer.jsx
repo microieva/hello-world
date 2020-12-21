@@ -1,11 +1,13 @@
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
-import { KEY } from ''
+require('dotenv').config()
 
 const MapContainer = () => {
   
   const mapStyles = {        
     height: "50vh",
-    width: "50%"};
+    width: "50%",
+    borderRadius: '5px'
+  };
   
   const defaultCenter = {
     lat: 41.3851, lng: 2.1734
@@ -13,7 +15,7 @@ const MapContainer = () => {
   
   return (
      <LoadScript
-       googleMapsApiKey= {KEY} >
+       googleMapsApiKey= {process.env.KEY} >
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={13}
