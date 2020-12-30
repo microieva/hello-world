@@ -115,14 +115,13 @@ const Home = ({ countries }) => {
                         countries={filteredCountries} worldPopulation={worldPopulation}/>
                 }
             </div> 
-            <div className='corona-stats-wrapper'>
+            <div className='stats-wrapper'>
                 {filteredCountries.length === countries.length || filteredCountries.length === 0?
                     <CoronaStats        
                         countries={countries}/>
                 :
                     <CoronaStats        
                         countries={filteredCountries}/>
-                
                 }    
             </div>  
         </div>

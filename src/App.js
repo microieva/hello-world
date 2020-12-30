@@ -20,8 +20,7 @@ import {
             coronaApiData: [], 
             data: []
         }
-    )
-    //console.log('App.js ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------');  
+    )  
     
     useEffect(() => {
         const fetchData = async () => {
@@ -49,15 +48,13 @@ import {
                     data: combined
                 }
             );
-            setLoading(false)
-            
-        };
-        
+            setLoading(false)    
+        };    
         fetchData();
         
     }, []);
 
-      if (loading || countries.data.length === 1) {
+    if (loading || countries.data.length === 1) {
         return  <h1 style={{
                     textAlign:'center',
                     background: '#EFECEF',
@@ -67,7 +64,7 @@ import {
                 }}>
                   Loading countries ..
                 </h1>
-      }
+    }
       
       return (  
         <Router>
@@ -76,14 +73,14 @@ import {
             <Switch>
                 <Route exact path='/country/:name' 
                     component={()=> <CountryPage 
-                                      countries={countries.data}
+                                        countries={countries.data}
                                     />
                     }
                 /> 
                 <Route exact path='/' 
                     component={() => <Home 
                                         countries={countries.data} 
-                                      />
+                                    />
                     } 
                 />
             </Switch>

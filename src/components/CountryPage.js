@@ -2,6 +2,7 @@ import { useParams } from 'react-router'
 import { useHistory } from "react-router-dom";
 //import { Link } from 'react-router-dom'
 import MapContainer from './MapContainer'
+import CountryStats from './CountryStats'
 import { format } from '../functions'
 import '../styles/country-page.css'
 
@@ -25,10 +26,9 @@ const CountryPage = ({ countries }) => {
                 </div>
             </div>
             <div className='content'>
-                {/* <h2>blah blah blah</h2> */}
                 <div className='map-container'>
                     <div className='country-data' style={{fontSize: 'larger'}}>
-                    <div className='info-data'>
+                        <div className='info-data'>
                             <h5>Capital: </h5>
                             <p>{country.capital}</p>    
                         </div>
@@ -61,19 +61,23 @@ const CountryPage = ({ countries }) => {
                                         )
                                         .join(", ")
                                     } */}
-                                    {country.borders.map(border=>border).join(", ")}
+                                    {country.borders.map(border => border).join(", ")}
                                 </p>      
                             </div>
                         }
                     </div>
                     <MapContainer />
                 </div>
+
+                <div className='stats-wrapper'>
+                    <CountryStats country={country} />
+                </div>
+                
                 <button type='button' onClick={handleClick}>
                     Back
                 </button>
                  
-            </div>
-            
+            </div>    
         </div>
     )
 }

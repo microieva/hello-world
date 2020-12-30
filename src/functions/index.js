@@ -4,8 +4,8 @@ export const percentage = (population, worldPopulation) => {
     
 }
 
-export const format = (population) => {
-    return population
+export const format = (number) => {
+    return number
         .toString().split( /(?=(?:\d{3})+(?:\.|$))/g ).join(" ")
 }
 

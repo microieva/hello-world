@@ -29,7 +29,7 @@ const CoronaStats = ({ countries }) => {
         .reduce((acc, curr) => acc + curr)
 
     return (
-        <div className='corona-stats-container'>
+        <div className='stats-container'>
             <h2>COVID-19 Statistics</h2>
             {countries && countries.length === 250 ? 
                 <div>
