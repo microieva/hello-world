@@ -109,10 +109,14 @@ const Home = ({ countries }) => {
             <div className='stats-wrapper'>
                 {filteredCountries.length === countries.length ?
                     <Stats 
-                        countries={countries} worldPopulation={worldPopulation}/>
+                        countries={countries} 
+                        worldPopulation={worldPopulation}
+                    />
                 :
                     <Stats 
-                        countries={filteredCountries} worldPopulation={worldPopulation}/>
+                        countries={filteredCountries} 
+                        worldPopulation={worldPopulation}
+                    />
                 }
             </div> 
             <div className='stats-wrapper'>

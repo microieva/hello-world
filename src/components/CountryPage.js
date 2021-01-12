@@ -1,6 +1,6 @@
 import { useParams } from 'react-router'
 import { useHistory } from "react-router-dom";
-//import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import MapContainer from './MapContainer'
 import CountryStats from './CountryStats'
 import { format } from '../functions'
@@ -13,7 +13,14 @@ const CountryPage = ({ countries }) => {
     const history = useHistory()
     const handleClick =()=>{
         history.push("/");
-      }
+    }
+    console.log('borders: ', country.borders);
+    const neighboringCountries = []
+    country.borders
+        .map(border => {
+            neighboringCountries.push(countries.find(c => c.alpha3Code === border))
+        })
+    console.log('neighboring: ', neighboringCountries);
 
     return (
         <div className='country-page-container'>
@@ -48,21 +55,25 @@ const CountryPage = ({ countries }) => {
                         {country.borders.length>0 &&
                             <div className='info-data'>
                                 <h5>Neighboring Countries: </h5>
-                                <p 
-                                    style={{textAlign:'right', marginLeft:'2rem'}}
-                                >
-                                    {/* {country.borders
-                                        .map(border => 
-                                            <Link 
-                                                to={`/country/${country.name}`} 
-                                                style={{textDecoration:'none', color: 'black'}}>
-                                                {border}
-                                            </Link>
+                                {neighboringCountries
+                                    .map((c, i) => {
+                                        console.log(c.name);
+                                        return (
+                                            <p 
+                                                key={i} 
+                                                style={{textAlign:'right', marginLeft:'2rem'}}
+                                            >
+                                                <Link 
+                                                    to={`/country/${c.name}`} 
+                                                    style={{textDecoration:'none', color: 'black'}}
+                                                >
+                                                    <p>{c.name}</p>
+                                                </Link>
+                                            </p> 
                                         )
-                                        .join(", ")
-                                    } */}
-                                    {country.borders.map(border => border).join(", ")}
-                                </p>      
+                                    })
+                                    .join(", ")
+                                }             
                             </div>
                         }
                     </div>
